@@ -34,7 +34,7 @@ $\Large W$ es un vector que le asignará un peso a cada valor proveniente de las
 $\Large b$ es un valor que aplicará un dezplazamiento (bias) al resultado.
 
 ## Activación no-lineal
-La función anterior es una función lineal. Si todas las neurona fueran lineales, el resultado de la Red Neuronal también sería otra funcion lineal. Esto no permitiría que la Red identificara condiciones complejas.
+La función anterior es una función lineal. Si todas las neurona fueran funciones lineales, el resultado de la Red Neuronal también sería otra funcion lineal. Esto NO permitiría que la Red identificara relaciones complejas.
 
 Para evitar esto, se agrega un componente no-lineal a cada neurona, llamada función de activación. En nuestro caso utilizaremos la tangente hiperbólica.
 
@@ -56,5 +56,23 @@ $$
 \Large
 a = \sum W X + b
 $$
+
+## Optimizacion de la Red Neuronal: Aprendizaje
+
+El proceso de aprendizaje de la Red implicará buscar valores para los pesos que usamos, de manera que cuando se la alimenta con los datos de un automóvil, la red produzca el resultado que queremos estimar: el recorrido por galon.
+
+**Pasos:**
+
+1. Inicializar los pesos que usaremos en nuestra red de forma aleatoria y con una distribución que facilite los calculos.
+2. Repetir lo siguiente:
+    1. Alimentar la red con las características de un automóvil.
+    2. Realizar los cálculos de la Red Neuronal, capa por capa, hasta obtener el resultado final.
+    3. Calcular el error (diferencia) entre la estimación de la Red y el valor real.
+    4. Desde atrás hacia adelante, utilizando la diferencia obtenida, calculamos para cada función su derivada.
+    
+
+
+
+
 
 

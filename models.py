@@ -4,13 +4,13 @@ import numpy as np
 class FourLayerModel:
     def __init__(self, input_features: int, hidden_layer1_neurons: int = 10, hidden_layer2_neurons: int = 5, output_layer_neurons: int = 1):
 
-        self.W1 = np.random.randn(hidden_layer1_neurons, input_features)
+        self.W1 = np.random.randn(hidden_layer1_neurons, input_features) * 0.01
         self.b1 = np.zeros((hidden_layer1_neurons, 1))
 
-        self.W2 = np.random.randn(hidden_layer2_neurons, hidden_layer1_neurons)
+        self.W2 = np.random.randn(hidden_layer2_neurons, hidden_layer1_neurons) * 0.01
         self.b2 = np.zeros((hidden_layer2_neurons, 1))
 
-        self.W3 = np.random.randn(output_layer_neurons, hidden_layer2_neurons)
+        self.W3 = np.random.randn(output_layer_neurons, hidden_layer2_neurons) * 0.01
         self.b3 = np.zeros((output_layer_neurons, 1))
 
     def forward_propagation(self, X):

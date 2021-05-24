@@ -38,31 +38,24 @@ $\Large b$ es un valor que aplicará un dezplazamiento (bias) al resultado.
 ## Activación no-lineal
 La función anterior es una función lineal. Si todas las neurona fueran funciones lineales, el resultado de la Red Neuronal también sería otra funcion lineal. Esto NO permitiría que la Red identificara relaciones complejas.
 
-Para evitar esto, se agrega un componente no-lineal a cada neurona, llamada función de activación. En nuestro caso utilizaremos la tangente hiperbólica.
+Para evitar esto, se agrega un componente no-lineal a cada neurona, llamada función de activación. En nuestro caso utilizaremos la función ReLU (unidad lineal rectificada), que no es otra cosa que:
 
-$$\Large a = \tanh( n )$$
+$$\Large a = ReLU( n ) = max( 0, n )$$
 
 De manera que la formula completa de cada neurona, exceptuando a la de la capa de Salida, será:
 
-$$
-\Large
-a = tanh( \sum W X + b )
-$$
+$$\Large a = max( 0, \sum W X + b )$$
 
 ## Activación lineal final
 Como nuestro objetivo es predecir un valor (regresion), en lugar detectar o clasificar un objeto (clasificación), la última neurona de la red, la de la capa de salida, deberá generar un valor lineal.
 
 La fórmula de esta neurona quedará como:
 
-$$
-\Large
-a = \sum W X + b
-$$
+$$\Large a = \sum W X + b$$
 
 ## Optimizacion de la Red Neuronal: Aprendizaje
 
 El proceso de aprendizaje de la Red implicará buscar valores para los pesos que usamos, de manera que cuando se la alimenta con los datos de un automóvil, la red produzca el resultado que queremos estimar: el recorrido por galon.
-
 
 **Pasos:**
 

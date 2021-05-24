@@ -3,7 +3,15 @@ import numpy as np
 
 class FourLayerModel:
     def __init__(self, input_features: int, hidden_layer1_neurons: int = 10, hidden_layer2_neurons: int = 5, output_layer_neurons: int = 1):
-
+        """
+        Arguments:
+            input_features (int): The number of input features.
+            hidden_layer1_neurons (int, optional): Number of Neurons for the first hidden layer. Defaults to 10.
+            hidden_layer2_neurons (int, optional): Number of Neurons for the second hidden layer. Defaults to 5.
+            output_layer_neurons (int, optional): Number of Neurons for the output layer. Defaults to 1.
+        """
+        np.random.seed(1)
+        
         self.W1 = np.random.randn(hidden_layer1_neurons, input_features) * 0.01
         self.b1 = np.zeros((hidden_layer1_neurons, 1))
 
@@ -12,6 +20,9 @@ class FourLayerModel:
 
         self.W3 = np.random.randn(output_layer_neurons, hidden_layer2_neurons) * 0.01
         self.b3 = np.zeros((output_layer_neurons, 1))
+
+    def relu(self, Z):
+        return np.maximum(Z, 0)
 
     def forward_propagation(self, X):
         """
@@ -25,12 +36,12 @@ class FourLayerModel:
         # Calculate first hidden layer neurons
         self.Z1 = np.dot(self.W1, X) + self.b1
         # Calculate first hidden layer neuron activations
-        self.A1 = np.tanh(self.Z1)
+        self.A1 = self.relu(self.Z1)
 
         # Calculate second hidden layer neurons
         self.Z2 = np.dot(self.W2, self.A1) + self.b2
         # Calculate second hidden layer neuron activations
-        self.A2 = np.tanh(self.Z2)
+        self.A2 = self.relu(self.Z2)
 
         # Calculate output layer neurons
         self.Z3 = np.dot(self.W3, self.A2) + self.b3
@@ -51,6 +62,9 @@ class FourLayerModel:
 
         return np.mean(np.square(Y - prediction))
 
+    def relu_dev(self, X):
+        return np.where(X > 0, 1, 0)
+
     def backward_propagation(self, X, Y):
         """
         Arguments:
@@ -69,18 +83,19 @@ class FourLayerModel:
         self.db3 = np.sum(self.dZ3, axis=1, keepdims=True) / m
 
         # Second hidden layer derivatives
-        self.dZ2 = np.dot(self.W3.T, self.dZ3) * (1 - np.square(self.A2))
+        self.dZ2 = np.dot(self.W3.T, self.dZ3) * self.relu_dev(self.A2)
         self.dW2 = np.dot(self.dZ2, self.A1.T) / m
         self.db2 = np.sum(self.dZ2, axis=1, keepdims=True) / m
 
         # First hidden layer derivatives
-        self.dZ1 = np.dot(self.W2.T, self.dZ2) * (1 - np.square(self.A1))
+        self.dZ1 = np.dot(self.W2.T, self.dZ2) * self.relu_dev(self.A1)
         self.dW1 = np.dot(self.dZ1, X.T) / m
         self.db1 = np.sum(self.dZ1, axis=1, keepdims=True) / m
 
     def update_weights(self, learning_rate=0.01):
         """
-        Updates the model weights using gradient descent with the specified learning rate.
+        Argument:
+        learning_rate -- The learning rate to apply in the weights update.
         """
         self.W1 = self.W1 - learning_rate * self.dW1
         self.b1 = self.b1 - learning_rate * self.db1

@@ -26,7 +26,7 @@ Cada neurona sera representada por la siguiente fórmula:
 
 $$
 \Large
-n = \sum W X + b
+Z = \sum W X + b
 $$
 
 En donde $\Large X$ es un vector (matriz unidimensional) con la información proveniente de cada una las neuronas de la capa anterior. En el caso de la primer capa oculta, la informacion que recibirá sera directamente las características del automóvil.
@@ -40,18 +40,18 @@ La función anterior es una función lineal. Si todas las neurona fueran funcion
 
 Para evitar esto, se agrega un componente no-lineal a cada neurona, llamada función de activación. En nuestro caso utilizaremos la función ReLU (unidad lineal rectificada), que no es otra cosa que:
 
-$$\Large a = ReLU( n ) = max( 0, n )$$
+$$\Large A = ReLU( Z ) = max( 0, Z )$$
 
 De manera que la formula completa de cada neurona, exceptuando a la de la capa de Salida, será:
 
-$$\Large a = max( 0, \sum W X + b )$$
+$$\Large A = max( 0, \sum W X + b )$$
 
 ## Activación lineal final
 Como nuestro objetivo es predecir un valor (regresion), en lugar detectar o clasificar un objeto (clasificación), la última neurona de la red, la de la capa de salida, deberá generar un valor lineal.
 
 La fórmula de esta neurona quedará como:
 
-$$\Large a = \sum W X + b$$
+$$\Large A = \sum W X + b$$
 
 ## Optimizacion de la Red Neuronal: Aprendizaje
 
